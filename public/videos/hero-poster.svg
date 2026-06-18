@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0A0A0A"/>
+      <stop offset="50%" style="stop-color:#141414"/>
+      <stop offset="100%" style="stop-color:#0A0A0A"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" style="stop-color:#C9A227;stop-opacity:0.08"/>
+      <stop offset="100%" style="stop-color:#C9A227;stop-opacity:0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1920" height="1080" fill="url(#bg)"/>
+  <rect width="1920" height="1080" fill="url(#glow)"/>
+  <text x="960" y="520" text-anchor="middle" fill="#C9A227" font-family="Arial, Helvetica, sans-serif" font-size="48" letter-spacing="12" font-weight="bold">GRUPO AYCO</text>
+  <text x="960" y="580" text-anchor="middle" fill="#B5B5B5" font-family="Arial, Helvetica, sans-serif" font-size="24" letter-spacing="4">Soluciones integrales de movilidad</text>
+</svg>
