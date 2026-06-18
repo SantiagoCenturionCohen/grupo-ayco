@@ -74,7 +74,7 @@ export const companies: Company[] = [
     tagline: "Repuestos con disponibilidad inmediata y asesoramiento técnico especializado.",
     pillar: "Spare Parts",
     logo: "/logos/LOGO ALIAN.png",
-    externalUrl: "https://alian.com.ar",
+    externalUrl: "https://www.alian.com.ar/",
     description: [
       "Aseguramos la continuidad de la movilidad de nuestros clientes a través de una unidad de repuestos basada en la inteligencia operativa.",
       "Este modelo empresarial prevé una solución integral garantizando disponibilidad inmediata, soporte logístico y asesoramiento técnico especializado, eliminando las incertidumbres inherentes a la transición funcional de los vehículos.",
