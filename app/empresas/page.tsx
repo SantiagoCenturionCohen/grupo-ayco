@@ -21,16 +21,12 @@ export default function EmpresasPage() {
             <h1 className="text-3xl font-bold md:text-4xl lg:text-5xl">
               Empresas
             </h1>
-            <p className="mt-4 max-w-3xl text-lg text-muted">
-              Cuatro unidades de negocio integradas que cubren cada etapa del
-              ciclo de vida del vehículo.
-            </p>
           </FadeIn>
         </Section>
       </div>
 
       <Section ariaLabel="Listado de empresas">
-        <CompanyList />
+        <CompanyList showLogo={false} showPillar={false} />
       </Section>
     </>
   );

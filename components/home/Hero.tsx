@@ -40,8 +40,8 @@ function CompanyBox({ company, pos }: { company: Company; pos: BoxPos }) {
         src={company.logo}
         alt={`Isotipo y logotipo de ${company.name}`}
         width={160}
-        height={70}
-        className="max-h-[56px] w-auto max-w-[82%] object-contain transition-transform duration-300 ease-out group-hover:scale-105 sm:max-h-[72px]"
+        height={160}
+        className="h-[68px] w-auto max-w-[88%] object-contain transition-transform duration-300 ease-out group-hover:scale-105 sm:h-[88px]"
       />
     </div>
   );
@@ -124,9 +124,9 @@ export function Hero() {
               <Image
                 src={GROUP_LOGO}
                 alt="Isotipo y logotipo de Grupo Ayco"
-                width={160}
-                height={80}
-                className="max-h-[60px] w-auto max-w-[88%] object-contain sm:max-h-[76px]"
+                width={180}
+                height={125}
+                className="h-[56px] w-auto max-w-[90%] object-contain sm:h-[72px]"
                 priority
               />
             </div>

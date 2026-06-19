@@ -8,7 +8,15 @@ import {
   PILLAR_LABELS,
 } from "@/lib/companies";
 
-export function CompanyList() {
+type CompanyListProps = {
+  showLogo?: boolean;
+  showPillar?: boolean;
+};
+
+export function CompanyList({
+  showLogo = true,
+  showPillar = true,
+}: CompanyListProps = {}) {
   return (
     <div className="mx-auto max-w-3xl space-y-16">
       {companies.map((company, index) => {
@@ -22,18 +30,22 @@ export function CompanyList() {
               className="scroll-mt-28 border-b border-border pb-12 last:border-b-0 last:pb-0"
             >
               <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:gap-6">
-                <Image
-                  src={company.logo}
-                  alt={`Logo de ${company.name}`}
-                  width={140}
-                  height={56}
-                  className="h-12 w-auto object-contain"
-                />
+                {showLogo && (
+                  <Image
+                    src={company.logo}
+                    alt={`Logo de ${company.name}`}
+                    width={140}
+                    height={56}
+                    className="h-12 w-auto object-contain"
+                  />
+                )}
                 <div>
-                  <p className="text-xs font-semibold uppercase tracking-widest text-gold">
-                    {PILLAR_LABELS[company.pillar]}
-                  </p>
-                  <h3 className="mt-1 text-2xl font-bold normal-case tracking-normal md:text-3xl">
+                  {showPillar && (
+                    <p className="text-xs font-semibold uppercase tracking-widest text-gold">
+                      {PILLAR_LABELS[company.pillar]}
+                    </p>
+                  )}
+                  <h3 className="text-2xl font-bold normal-case tracking-normal md:text-3xl [p+&]:mt-1">
                     {company.name}
                   </h3>
                 </div>

@@ -78,13 +78,9 @@ export default function HomePage() {
           <div className="mb-12 text-center">
             <div className="gold-line mx-auto mb-6" />
             <h2 className="text-2xl font-bold md:text-3xl">Empresas</h2>
-            <p className="mx-auto mt-4 max-w-2xl text-muted">
-              Cuatro unidades de negocio integradas que cubren cada etapa del
-              ciclo de vida del vehículo.
-            </p>
           </div>
         </FadeIn>
-        <CompanyList />
+        <CompanyList showLogo={false} showPillar={false} />
       </Section>
 
       <Section id="contacto" className="scroll-mt-20" ariaLabel="Contacto">
