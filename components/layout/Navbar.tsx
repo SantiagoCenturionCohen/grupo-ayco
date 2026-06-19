@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useId, useRef, useState } from "react";
-import { companies, GROUP_LOGO } from "@/lib/companies";
+import { companies, getCompanySectionHref, GROUP_LOGO } from "@/lib/companies";
 import { cn } from "@/lib/utils";
 
 const navItems = [
@@ -25,11 +25,17 @@ export function Navbar() {
   const isEmpresasActive =
     pathname === "/empresas" || pathname.startsWith("/empresas/");
 
-  useEffect(() => {
+  const closeDropdown = useCallback(() => setEmpresasOpen(false), []);
+
+  const closeMobileMenu = useCallback(() => {
     setMobileOpen(false);
-    setEmpresasOpen(false);
     setMobileEmpresasOpen(false);
-  }, [pathname]);
+    setEmpresasOpen(false);
+  }, []);
+
+  useEffect(() => {
+    closeMobileMenu();
+  }, [pathname, closeMobileMenu]);
 
   useEffect(() => {
     document.body.style.overflow = mobileOpen ? "hidden" : "";
@@ -37,8 +43,6 @@ export function Navbar() {
       document.body.style.overflow = "";
     };
   }, [mobileOpen]);
-
-  const closeDropdown = useCallback(() => setEmpresasOpen(false), []);
 
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
@@ -122,9 +126,10 @@ export function Navbar() {
                     {companies.map((company) => (
                       <Link
                         key={company.slug}
-                        href={`/#${company.slug}`}
+                        href={getCompanySectionHref(company)}
                         role="menuitem"
                         className="flex items-center gap-3 px-4 py-3 text-sm text-foreground transition-colors hover:bg-gold/10 hover:text-gold focus:bg-gold/10 focus:text-gold focus:outline-none"
+                        onClick={closeDropdown}
                       >
                         <Image
                           src={company.logo}
@@ -185,8 +190,8 @@ export function Navbar() {
       {/* Mobile drawer */}
       <div
         className={cn(
-          "fixed inset-0 top-[65px] z-40 bg-background transition-transform duration-300 md:hidden",
-          mobileOpen ? "translate-x-0" : "translate-x-full"
+          "fixed inset-0 top-[65px] z-40 overflow-y-auto bg-background transition-transform duration-300 md:hidden",
+          mobileOpen ? "translate-x-0" : "pointer-events-none translate-x-full"
         )}
         aria-hidden={!mobileOpen}
       >
@@ -218,8 +223,9 @@ export function Navbar() {
                     {companies.map((company) => (
                       <Link
                         key={company.slug}
-                        href={`/#${company.slug}`}
+                        href={getCompanySectionHref(company)}
                         className="flex items-center gap-3 py-3 text-muted hover:text-gold"
+                        onClick={closeMobileMenu}
                       >
                         <Image
                           src={company.logo}
@@ -231,7 +237,11 @@ export function Navbar() {
                         <span>{company.name}</span>
                       </Link>
                     ))}
-                    <Link href="/empresas" className="mt-2 block py-2 text-sm text-gold">
+                    <Link
+                      href="/empresas"
+                      className="mt-2 block py-2 text-sm text-gold"
+                      onClick={closeMobileMenu}
+                    >
                       Ver todas
                     </Link>
                   </div>
@@ -245,6 +255,7 @@ export function Navbar() {
                   "border-b border-border py-4 text-base",
                   isActive(item.href) ? "text-gold" : "text-foreground"
                 )}
+                onClick={closeMobileMenu}
               >
                 {item.label}
               </Link>

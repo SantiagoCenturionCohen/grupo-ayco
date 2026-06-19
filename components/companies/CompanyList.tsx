@@ -65,18 +65,42 @@ export function CompanyList({
               <div className="mt-6 flex flex-wrap gap-x-6 gap-y-2 text-sm font-semibold uppercase tracking-widest">
                 <Link
                   href={`/empresas/${company.slug}`}
-                  className="text-gold transition-colors hover:text-gold-light"
+                  className="inline-flex items-center gap-1.5 text-gold transition-colors hover:text-gold-light"
                 >
-                  Ver más →
+                  Ver más
+                  <svg
+                    className="h-3.5 w-3.5 shrink-0"
+                    viewBox="0 0 16 16"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    aria-hidden
+                  >
+                    <path d="M3 8h10M9 4l4 4-4 4" />
+                  </svg>
                 </Link>
                 {external && (
                   <a
                     href={href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-muted transition-colors hover:text-gold"
+                    className="inline-flex items-center gap-1.5 text-muted transition-colors hover:text-gold"
                   >
-                    Visitar sitio ↗
+                    Visitar sitio
+                    <svg
+                      className="h-3.5 w-3.5 shrink-0"
+                      viewBox="0 0 16 16"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      aria-hidden
+                    >
+                      <path d="M4.5 11.5L11.5 4.5M6 4.5h5.5V10" />
+                    </svg>
                   </a>
                 )}
               </div>

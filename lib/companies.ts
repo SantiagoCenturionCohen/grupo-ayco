@@ -33,7 +33,7 @@ export const companies: Company[] = [
     name: "Ayco Automotores",
     tagline: "Comercialización de unidades 0km y trade-in de vehículos seleccionados.",
     pillar: "Sales",
-    logo: "/logos/LOGO AYCO.png",
+    logo: "/logos/AYCO.png",
     externalUrl: "https://aycoautomotores.com/",
     description: [
       "Nos especializamos en la Comercialización de Unidades 0km de marcas globales líderes y en la gestión de Trade-in de vehículos seleccionados, operando bajo un modelo de gestión independiente, con presencia regional a través de multisucursales.",
@@ -47,7 +47,7 @@ export const companies: Company[] = [
     name: "Alco Servicios Financieros",
     tagline: "Sistema integral de soluciones financieras para la adquisición de vehículos.",
     pillar: "Financiación",
-    logo: "/logos/LOGO ALCO.png",
+    logo: "/logos/ALCO.png",
     externalUrl: "https://alco.com.ar",
     description: [
       "Nos dedicamos a facilitar la adquisición de vehículos a través de un Sistema Integral de Soluciones Financieras diseñado para cubrir los diversos perfiles de nuestros clientes.",
@@ -60,7 +60,7 @@ export const companies: Company[] = [
     name: "Alva Service",
     tagline: "Mantenimiento preventivo y correctivo para mantener el negocio en movimiento.",
     pillar: "Service",
-    logo: "/logos/LOGO ALVA.png",
+    logo: "/logos/ALVA.png",
     externalUrl: "https://www.alvaneumaticos.com/",
     description: [
       "Brindamos Servicios de Mantenimiento Preventivo y Correctivo, optimizando procesos funcionales para garantizar la continuidad operativa de cada vehículo de nuestros socios estratégicos.",
@@ -73,7 +73,7 @@ export const companies: Company[] = [
     name: "Alian Repuestos",
     tagline: "Repuestos con disponibilidad inmediata y asesoramiento técnico especializado.",
     pillar: "Spare Parts",
-    logo: "/logos/LOGO ALIAN.png",
+    logo: "/logos/ALIAN.png",
     externalUrl: "https://www.alian.com.ar/",
     description: [
       "Aseguramos la continuidad de la movilidad de nuestros clientes a través de una unidad de repuestos basada en la inteligencia operativa.",
@@ -88,6 +88,11 @@ export function getCompanyBySlug(slug: string): Company | undefined {
 
 export function getCompanyHref(company: Company): string {
   return company.externalUrl ?? `/empresas/${company.slug}`;
+}
+
+/** Ancla interna en la página Empresas (navbar y navegación del sitio). */
+export function getCompanySectionHref(company: Company): string {
+  return `/empresas#${company.slug}`;
 }
 
 export function isExternalCompany(company: Company): boolean {
