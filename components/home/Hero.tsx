@@ -101,8 +101,8 @@ export function Hero() {
             aria-label="Video de fondo Grupo Ayco"
           />
         )}
-        <div className="absolute inset-0 bg-background/80" />
-        <div className="absolute inset-0 bg-gradient-to-b from-background/50 via-background/20 to-background/60" />
+        <div className="absolute inset-0 bg-background/94" />
+        <div className="absolute inset-0 bg-gradient-to-b from-background/75 via-background/55 to-background/85" />
       </div>
 
       {/* Diagrama de integración sobre el video */}
