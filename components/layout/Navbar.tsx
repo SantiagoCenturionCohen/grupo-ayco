@@ -4,12 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useId, useRef, useState } from "react";
-import {
-  companies,
-  getCompanyHref,
-  GROUP_LOGO,
-  isExternalCompany,
-} from "@/lib/companies";
+import { companies, GROUP_LOGO } from "@/lib/companies";
 import { cn } from "@/lib/utils";
 
 const navItems = [
@@ -124,47 +119,23 @@ export function Navbar() {
                         : "invisible -translate-y-1 opacity-0"
                     )}
                   >
-                    {companies.map((company) => {
-                      const href = getCompanyHref(company);
-                      const external = isExternalCompany(company);
-                      const itemClass =
-                        "flex items-center gap-3 px-4 py-3 text-sm text-foreground transition-colors hover:bg-gold/10 hover:text-gold focus:bg-gold/10 focus:text-gold focus:outline-none";
-
-                      const content = (
-                        <>
-                          <Image
-                            src={company.logo}
-                            alt={`Isotipo de ${company.name}`}
-                            width={32}
-                            height={32}
-                            className="h-8 w-8 object-contain"
-                          />
-                          <span>{company.name}</span>
-                        </>
-                      );
-
-                      return external ? (
-                        <a
-                          key={company.slug}
-                          href={href}
-                          role="menuitem"
-                          className={itemClass}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          {content}
-                        </a>
-                      ) : (
-                        <Link
-                          key={company.slug}
-                          href={href}
-                          role="menuitem"
-                          className={itemClass}
-                        >
-                          {content}
-                        </Link>
-                      );
-                    })}
+                    {companies.map((company) => (
+                      <Link
+                        key={company.slug}
+                        href={`/#${company.slug}`}
+                        role="menuitem"
+                        className="flex items-center gap-3 px-4 py-3 text-sm text-foreground transition-colors hover:bg-gold/10 hover:text-gold focus:bg-gold/10 focus:text-gold focus:outline-none"
+                      >
+                        <Image
+                          src={company.logo}
+                          alt={`Isotipo de ${company.name}`}
+                          width={32}
+                          height={32}
+                          className="h-8 w-8 object-contain"
+                        />
+                        <span>{company.name}</span>
+                      </Link>
+                    ))}
                     <div className="mx-4 my-2 h-px bg-border" />
                     <Link
                       href="/empresas"
@@ -244,32 +215,22 @@ export function Navbar() {
                 </button>
                 {mobileEmpresasOpen && (
                   <div className="pb-4 pl-4">
-                    {companies.map((company) => {
-                      const href = getCompanyHref(company);
-                      const external = isExternalCompany(company);
-                      const itemClass = "flex items-center gap-3 py-3 text-muted hover:text-gold";
-                      const content = (
-                        <>
-                          <Image
-                            src={company.logo}
-                            alt={`Isotipo de ${company.name}`}
-                            width={28}
-                            height={28}
-                            className="h-7 w-7 object-contain"
-                          />
-                          <span>{company.name}</span>
-                        </>
-                      );
-                      return external ? (
-                        <a key={company.slug} href={href} className={itemClass} target="_blank" rel="noopener noreferrer">
-                          {content}
-                        </a>
-                      ) : (
-                        <Link key={company.slug} href={href} className={itemClass}>
-                          {content}
-                        </Link>
-                      );
-                    })}
+                    {companies.map((company) => (
+                      <Link
+                        key={company.slug}
+                        href={`/#${company.slug}`}
+                        className="flex items-center gap-3 py-3 text-muted hover:text-gold"
+                      >
+                        <Image
+                          src={company.logo}
+                          alt={`Isotipo de ${company.name}`}
+                          width={28}
+                          height={28}
+                          className="h-7 w-7 object-contain"
+                        />
+                        <span>{company.name}</span>
+                      </Link>
+                    ))}
                     <Link href="/empresas" className="mt-2 block py-2 text-sm text-gold">
                       Ver todas
                     </Link>

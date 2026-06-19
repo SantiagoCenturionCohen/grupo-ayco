@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { CompanyGrid } from "@/components/companies/CompanyGrid";
+import { CompanyList } from "@/components/companies/CompanyList";
 import { FadeIn } from "@/components/ui/FadeIn";
 import { Section } from "@/components/ui/Section";
 import { createMetadata } from "@/lib/metadata";
@@ -30,7 +30,7 @@ export default function EmpresasPage() {
       </div>
 
       <Section ariaLabel="Listado de empresas">
-        <CompanyGrid />
+        <CompanyList />
       </Section>
     </>
   );

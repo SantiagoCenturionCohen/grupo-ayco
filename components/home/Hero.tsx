@@ -8,92 +8,66 @@ import {
   getCompanyHref,
   GROUP_LOGO,
   isExternalCompany,
+  type Company,
 } from "@/lib/companies";
 
-function CompanyLogoBox({
-  company,
-  label,
-}: {
-  company: (typeof companies)[0];
-  label: string;
-}) {
+type BoxPos = {
+  left: string;
+  top: string;
+  width: string;
+  height: string;
+};
+
+// Inspirado en el wireframe del PDF, pero con simetría espejo en ambos ejes:
+// 4 empresas en grid 2×2 y la caja central (Grupo) superpuesta al cruce,
+// como hub que integra a las 4. Sin rotación.
+const COMPANY_BOXES: { company: Company; pos: BoxPos }[] = [
+  { company: companies[0], pos: { left: "0%", top: "0%", width: "47%", height: "42%" } }, // Ayco
+  { company: companies[1], pos: { left: "53%", top: "0%", width: "47%", height: "42%" } }, // Alco
+  { company: companies[2], pos: { left: "0%", top: "58%", width: "47%", height: "42%" } }, // Alva
+  { company: companies[3], pos: { left: "53%", top: "58%", width: "47%", height: "42%" } }, // Alian
+];
+
+const GRUPO_POS: BoxPos = { left: "33%", top: "35%", width: "34%", height: "30%" };
+
+function CompanyBox({ company, pos }: { company: Company; pos: BoxPos }) {
   const href = getCompanyHref(company);
   const external = isExternalCompany(company);
 
-  const box = (
-    <div className="flex flex-col items-center">
-      <span className="mb-2 text-sm font-semibold text-foreground drop-shadow-sm">{label}</span>
-      <div className="flex h-[100px] w-[130px] items-center justify-center border border-border bg-background/95 p-3 shadow-lg backdrop-blur-sm transition-colors hover:border-gold/60 sm:h-[120px] sm:w-[160px] sm:p-4">
-        <Image
-          src={company.logo}
-          alt={`Isotipo y logotipo de ${company.name}`}
-          width={120}
-          height={60}
-          className="h-auto max-h-[70px] w-full object-contain sm:max-h-[85px]"
-        />
-      </div>
+  const inner = (
+    <div className="flex h-full w-full items-center justify-center border border-border bg-background/85 p-3 backdrop-blur-sm transition-all duration-300 ease-out hover:-translate-y-2 hover:border-gold hover:bg-background/95 hover:shadow-[0_16px_34px_rgba(0,0,0,0.55)] sm:p-4">
+      <Image
+        src={company.logo}
+        alt={`Isotipo y logotipo de ${company.name}`}
+        width={160}
+        height={70}
+        className="max-h-[56px] w-auto max-w-[82%] object-contain transition-transform duration-300 ease-out group-hover:scale-105 sm:max-h-[72px]"
+      />
     </div>
   );
 
-  if (external) {
-    return (
-      <a
-        href={href}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="group block"
-        aria-label={`Ir a ${company.name}`}
-      >
-        {box}
-      </a>
-    );
-  }
-
   return (
-    <Link href={href} className="group block" aria-label={`Ir a ${company.name}`}>
-      {box}
-    </Link>
-  );
-}
-
-function ConnectorLines() {
-  return (
-    <svg
-      className="pointer-events-none absolute inset-0 h-full w-full"
-      viewBox="0 0 600 500"
-      fill="none"
-      preserveAspectRatio="xMidYMid meet"
-      aria-hidden
-    >
-      {/* Ayco (top-left) → Grupo: horizontal + vertical en L */}
-      <path
-        d="M 195 95 H 300 V 225"
-        stroke="currentColor"
-        strokeWidth="2"
-        className="text-foreground/80"
-      />
-      {/* Alco (top-right) → Grupo */}
-      <path
-        d="M 405 95 H 300 V 225"
-        stroke="currentColor"
-        strokeWidth="2"
-        className="text-foreground/80"
-      />
-      {/* Alva (bottom-left) → Grupo */}
-      <path
-        d="M 195 405 H 300 V 275"
-        stroke="currentColor"
-        strokeWidth="2"
-        className="text-foreground/80"
-      />
-      {/* Alian (bottom-right) → Grupo */}
-      <path
-        d="M 405 405 H 300 V 275"
-        stroke="currentColor"
-        strokeWidth="2"
-        className="text-foreground/80"
-      />
-    </svg>
+    <div className="group absolute z-0 hover:z-20" style={pos}>
+      {external ? (
+        <a
+          href={href}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="block h-full w-full"
+          aria-label={`Ir a ${company.name}`}
+        >
+          {inner}
+        </a>
+      ) : (
+        <Link
+          href={href}
+          className="block h-full w-full"
+          aria-label={`Ir a ${company.name}`}
+        >
+          {inner}
+        </Link>
+      )}
+    </div>
   );
 }
 
@@ -135,45 +109,27 @@ export function Hero() {
       <div className="relative z-10 flex min-h-[calc(100vh-73px)] flex-col items-center justify-center px-4 py-10 sm:px-6">
         <h1 className="sr-only">Grupo Ayco — Soluciones integrales de movilidad</h1>
 
-        {/* Diagrama de integración en rombo */}
-        <div className="relative w-full max-w-[600px]" style={{ aspectRatio: "6/5" }}>
-          <ConnectorLines />
+        {/* Rectángulos entrelazados según el wireframe del PDF */}
+        <div
+          className="relative w-full max-w-[620px]"
+          style={{ aspectRatio: "6 / 5" }}
+        >
+          {COMPANY_BOXES.map(({ company, pos }) => (
+            <CompanyBox key={company.slug} company={company} pos={pos} />
+          ))}
 
-          {/* Ayco — arriba izquierda */}
-          <div className="absolute left-0 top-0">
-            <CompanyLogoBox company={companies[0]} label="Ayco" />
-          </div>
-
-          {/* Alco — arriba derecha */}
-          <div className="absolute right-0 top-0">
-            <CompanyLogoBox company={companies[1]} label="Alco" />
-          </div>
-
-          {/* Grupo Ayco — centro */}
-          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
-            <div className="flex flex-col items-center">
-              <span className="mb-2 text-sm font-semibold text-foreground drop-shadow-sm">Grupo</span>
-              <div className="flex h-[110px] w-[140px] items-center justify-center border border-gold/50 bg-background/95 p-3 shadow-lg backdrop-blur-sm sm:h-[130px] sm:w-[170px] sm:p-4">
-                <Image
-                  src={GROUP_LOGO}
-                  alt="Isotipo y logotipo de Grupo Ayco"
-                  width={140}
-                  height={80}
-                  className="h-auto max-h-[80px] w-full object-contain sm:max-h-[95px]"
-                  priority
-                />
-              </div>
+          {/* Grupo Ayco — caja central (hub) */}
+          <div className="absolute z-10" style={GRUPO_POS}>
+            <div className="flex h-full w-full items-center justify-center border border-gold bg-background/90 p-3 shadow-[0_0_45px_rgba(201,162,39,0.25)] backdrop-blur-sm sm:p-4">
+              <Image
+                src={GROUP_LOGO}
+                alt="Isotipo y logotipo de Grupo Ayco"
+                width={160}
+                height={80}
+                className="max-h-[60px] w-auto max-w-[88%] object-contain sm:max-h-[76px]"
+                priority
+              />
             </div>
-          </div>
-
-          {/* Alva — abajo izquierda */}
-          <div className="absolute bottom-0 left-0">
-            <CompanyLogoBox company={companies[2]} label="Alva" />
-          </div>
-
-          {/* Alian — abajo derecha */}
-          <div className="absolute bottom-0 right-0">
-            <CompanyLogoBox company={companies[3]} label="Alian" />
           </div>
         </div>
       </div>
